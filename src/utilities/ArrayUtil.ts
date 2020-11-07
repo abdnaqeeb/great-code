@@ -1,5 +1,5 @@
 export class ArrayUtil {
-    public static sortObjects(arrayOfObjects: any[], _sortingFields: string[]): any[] {
+    public static sortObjects(arrayOfObjects: any[], sortingFields: string[]): any[] {
         // if the array of objects is empty, then return it
         if (arrayOfObjects.length === 0) {
             return [...arrayOfObjects];
@@ -13,10 +13,10 @@ export class ArrayUtil {
         }
 
         // filer only the sorting fields that matching the properties of the objects
-        _sortingFields = _sortingFields.filter(f => allFields.some(i => f === i));
+        let applicableSortingFields = sortingFields.filter(f => allFields.some(i => f === i));
 
         // if there is no sorting fields, then return the same objects array in the same order
-        if (_sortingFields.length === 0) {
+        if (applicableSortingFields.length === 0) {
             return [...arrayOfObjects];
         }
 
@@ -34,7 +34,7 @@ export class ArrayUtil {
         sortedObjects.sort((a, b) => {
             let comparison = 0;
 
-            let comparisonList = _sortingFields.map(f => compare(a[f], b[f]));
+            let comparisonList = applicableSortingFields.map(f => compare(a[f], b[f]));
 
             comparisonList.some(i => {
                 comparison = i;
